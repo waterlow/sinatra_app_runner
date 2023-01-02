@@ -1,0 +1,4 @@
+/.git/
+
+# Ignore bundler config.
+/.bundle

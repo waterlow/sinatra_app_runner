@@ -1,0 +1,8 @@
+version: 1.0
+runtime: ruby31
+build:
+  commands:
+    build:
+      - bundle install; echo build;
+run:
+  command: bundle exec ruby app.rb -o 0.0.0.0 -p 8080

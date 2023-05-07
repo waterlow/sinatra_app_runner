@@ -1,17 +1,30 @@
-name: example
+name: ecr push image
 
 on:
   push:
 
 jobs:
-  s3ls:
+  push:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
       contents: read
     steps:
+      - uses: actions/checkout@v3
+
+      # AWS 認証
       - uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-region: 'ap-northeast-1'
-          role-to-assume: 'arn:aws:iam::765062437422:role/sinatra_app_runner_oidc_role'
-      - run: aws s3 ls s3://sinatra-app-runner
+          aws-region: "<リージョン>"
+          role-to-assume: "<GitHub Actions用のIAMロールのARN>"
+
+      - uses: aws-actions/amazon-ecr-login@v1
+        id: login-ecr # outputs で参照するために id を設定
+
+      - name: build and push docker image to ecr
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPOSITORY: "sinatra_app_runner"
+        run: |
+          docker build . --tag ${{ env.REGISTRY }}/${{ env.REPOSITORY }}
+          docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY }}

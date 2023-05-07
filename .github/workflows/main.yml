@@ -15,8 +15,8 @@ jobs:
       # AWS 認証
       - uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-region: "<リージョン>"
-          role-to-assume: "<GitHub Actions用のIAMロールのARN>"
+          aws-region: ap-northeast-1
+          role-to-assume: arn:aws:iam::765062437422:role/sinatra_app_runner_oidc_role
 
       - uses: aws-actions/amazon-ecr-login@v1
         id: login-ecr # outputs で参照するために id を設定

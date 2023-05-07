@@ -19,12 +19,10 @@ jobs:
           role-to-assume: arn:aws:iam::765062437422:role/sinatra_app_runner_oidc_role
 
       - uses: aws-actions/amazon-ecr-login@v1
-        id: login-ecr # outputs で参照するために id を設定
 
       - name: build and push docker image to ecr
         env:
-          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          REPOSITORY: "sinatra_app_runner"
+          REGISTRY_URL: 765062437422.dkr.ecr.ap-northeast-1.amazonaws.com/sinatra_app_runner
         run: |
-          docker build . --tag ${{ env.REGISTRY }}/${{ env.REPOSITORY }}
-          docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY }}
+          docker build . --tag ${{ REGISTRY_URL }}
+          docker push ${{ REGISTRY_URL }}

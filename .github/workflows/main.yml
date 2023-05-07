@@ -22,7 +22,7 @@ jobs:
 
       - name: build and push docker image to ecr
         env:
-          REGISTRY_URL: 765062437422.dkr.ecr.ap-northeast-1.amazonaws.com/sinatra_app_runner
+          REGISTRYURL: 765062437422.dkr.ecr.ap-northeast-1.amazonaws.com/sinatra_app_runner
         run: |
-          docker build . --tag ${{ REGISTRY_URL }}
-          docker push ${{ REGISTRY_URL }}
+          docker build . --tag ${{ REGISTRYURL }}
+          docker push ${{ REGISTRYURL }}
